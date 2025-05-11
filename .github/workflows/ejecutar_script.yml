@@ -1,0 +1,26 @@
+name: Ejecutar script BCRA diariamente
+
+on:
+  schedule:
+    - cron: '0 22 * * *'  # Todos los días a las 22:00 UTC
+  workflow_dispatch:     # Permite ejecución manual también
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt || true
+
+      - name: Ejecutar script
+        run: python BCRA_API_VARIACION_RESERVAS.py
