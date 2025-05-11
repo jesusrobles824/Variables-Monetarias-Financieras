@@ -50,13 +50,11 @@ for id in lista:
      print(f"Error {response.status_code} : {response.text}")
      
 Variacion_Reservas = pd.concat(lista_variables.values(), axis=1)
-Variacion_Reservas.to_excel('Variacion_Reservas.xlsx', index=True)
 Variacion_Reservas.index = pd.to_datetime(Variacion_Reservas.index)
 
 Variacion_Acumulada = Variacion_Reservas.cumsum()
 Variacion_Acumulada.columns = ['Variación acumulada', 'Compra/Venta MULC', 'Operaciones con organismos internacionales', 'Otras operaciones del sector público', 'Variación por efectivo mínimo', 'Otras operaciones no incluidas en otros rubros']
 Variacion_Acumulada.index = pd.to_datetime(Variacion_Acumulada.index)
-Variacion_Acumulada.to_excel('Variación_Reservas_Acumuladas.xlsx', index=True)
 print(Variacion_Acumulada)
 ultimo = Variacion_Acumulada.index[-1].date()
 mes = ultimo.month
@@ -128,5 +126,4 @@ plt.text(0.9, 1.16, '@JesusRobles824', fontsize=13, color='black', weight='bold'
 plt.tight_layout()
 sns.despine(left=True, bottom=False)
 plt.gca().spines['bottom'].set_color('gray')
-plt.savefig('Variación_Acumulada_RRII.png', bbox_inches='tight', pad_inches=0.3)
 plt.show()
